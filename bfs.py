@@ -9,7 +9,7 @@ map_1=[
        ['-','-','e','e','e','e','e','e','e','e'], #1
        ['-','-','-','e','-','-','-','-','-','-'], #2
        ['-','-','e','-','-','e','e','-','e','e'], #3
-       ['-','-','e','-','e','x','e','-','-','-'], #4
+       ['-','-','e','-','e','X','e','-','-','-'], #4
        ['-','-','-','-','-','-','e','e','e','-'], #5
        ['-','-','e','-','-','-','-','-','e','-'], #6
        ['-','-','-','-','-','-','-','-','e','*']  #7
@@ -57,17 +57,20 @@ def bfs(st,mapx):
         
     x[st]=set(lista)
     mapx[st[0]][st[1]]='o'
-    if (mapx[st[0]][st[1]]=='x'):
+    if (mapx[st[0]][st[1]]=='X'):
         return "first"
     for y in get_neighbours(mapx,st):queue.append(get_neighbours(mapx,st)[y])
     while len(queue)!=0:
         lista =[]  
         current=queue.pop(0)
         z=get_neighbours(mapx,current)
-        if mapx[current[0]][current[1]] =="x":
+        if mapx[current[0]][current[1]] =="X":
             for p in get_neighbours(mapx,current):lista.append(get_neighbours(mapx,current)[p])
             x[current]=set(lista)
             j=find_path(x,st,current)
+            for x in j :mapx[x[0]][x[1]]="x"
+            
+            print(f"{np.matrix(mapx)} \n \n")
             return j
 
         for p in z:
